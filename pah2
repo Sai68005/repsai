@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h3 {
+            color: #333;
+        }
+        .form-container {
+            margin: 20px 0;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input[type="number"] {
+            padding: 8px;
+            margin: 5px;
+            width: 150px;
+        }
+        #generateBtn {
+            background-color: rgb(77, 176, 80);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #errormessage {
+            color: red;
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        #table {
+            margin: 20px auto;
+            text-align: left;
+            display: inline-block;
+            white-space: pre; /* Preserve newlines and whitespace */
+        }
+    </style>
+</head>
+<body>
+    <h3>Multiplication Table Generator</h3>
+    <div class="form-container">
+        <div>
+            <label for="number">Enter a number:</label>
+            <input type="number" id="number" placeholder="Enter a number">
+        </div>
+        <div>
+            <label for="start">Start Value:</label>
+            <input type="number" id="start" placeholder="Start of range">
+        </div>
+        <div>
+            <label for="end">End Value:</label>
+            <input type="number" id="end" placeholder="End of range">
+        </div>
+        <button type="button" id="generateBtn">Generate Table</button>
+    </div>
+    <div id="errormessage"></div>
+    <div id="table">3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9</div>
+
+    <script>
+        const numberInput = document.getElementById('number');
+        const startInput = document.getElementById('start');
+        const endInput = document.getElementById('end');
+        const generateBtn = document.getElementById('generateBtn');
+        const errorMessage = document.getElementById('errormessage');
+        const tableOutput = document.getElementById('table');
+
+        // Function to generate multiplication table
+        function generateTable(num, start, end) {
+            let tableContent = '';
+            for (let i = start; i <= end; i++) {
+                tableContent += ${num} x ${i} = ${num * i}\n;
+            }
+            return tableContent;
+        }
+
+        // Set sample output on page load
+        // Already set in HTML: tableOutput.textContent = generateTable(3, 1, 3);
+
+        generateBtn.addEventListener('click', () => {
+            // Clear previous error
+            errorMessage.textContent = '';
+
+            // Get input values
+            const number = numberInput.value.trim();
+            const start = startInput.value.trim();
+            const end = endInput.value.trim();
+
+            // Validate inputs
+            if (!number || !start || !end) {
+                errorMessage.textContent = 'All fields are required!';
+                tableOutput.textContent = generateTable(3, 1, 3); // Revert to sample output
+                return;
+            }
+
+            const num = parseInt(number);
+            const startVal = parseInt(start);
+            const endVal = parseInt(end);
+
+            // Generate multiplication table
+            tableOutput.textContent = generateTable(num, startVal, endVal);
+        });
+    </script>
+</body>
+</html>
